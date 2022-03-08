@@ -44,3 +44,10 @@ class Profile(models.Model):
     class Meta:
         verbose_name = 'Profile'
         verbose_name_plural = 'Profiles'
+
+
+class Gender(models.Model):
+    name = models.CharField(max_length=20, verbose_name='Name')
+
+    def __str__(self):
+        return f'{self.pk}. {self.name}'
