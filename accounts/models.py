@@ -21,7 +21,6 @@ class Profile(models.Model):
         blank=True,
         verbose_name='Gender'
     )
-    followings = models.ManyToManyField('self', blank=True, symmetrical=False, related_name='followers')
     followers_total = models.IntegerField(
         default=0,
         blank=True,
@@ -51,3 +50,11 @@ class Gender(models.Model):
 
     def __str__(self):
         return f'{self.pk}. {self.name}'
+
+
+class UserFollowing(models.Model):
+    user_id = models.ForeignKey(get_user_model(), related_name='following', on_delete=models.CASCADE)
+    following_user_id = models.ForeignKey(get_user_model(), related_name='followers', on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user_id', 'following_user_id')
