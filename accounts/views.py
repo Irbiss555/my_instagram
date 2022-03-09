@@ -5,10 +5,6 @@ from django.shortcuts import render, resolve_url
 from core import settings
 
 
-def index_view(request):
-    return render(request, 'index.html', {'text': 'Hello world'})
-
-
 class LoginUserView(LoginView):
     redirect_authenticated_user = True
 
