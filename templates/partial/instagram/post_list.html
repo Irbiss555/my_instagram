@@ -1,9 +1,6 @@
-{% extends 'base.html' %}
-
-{% block content %}
-    {% for post in posts %}
-        <div style="display: flex; justify-content: center">
-            <div class="card" style="width: 80%; margin: 20px 0 0 20px;">
+{% for post in posts %}
+        <div style="display: flex; justify-content: space-between">
+            <div class="card" style="width: 30%; margin: 5px;">
                 <div class="card-header">{{ post.user }}</div>
                 <img class="card-img-top" style="height: 400px;" src="{{ post.image.url }}">
                 <div class="card-body">
@@ -11,5 +8,4 @@
                 </div>
             </div>
         </div>
-    {% endfor %}
-{% endblock %}
+{% endfor %}

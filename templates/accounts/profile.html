@@ -23,7 +23,7 @@
             </div>
         </div>
         <div style="margin-top: 10px">
-            <p>Тут будет посты</p>
+            {% include 'partial/instagram/post_list.html' with posts=user_obj.posts.all %}
         </div>
     </div>
 {% endblock %}
