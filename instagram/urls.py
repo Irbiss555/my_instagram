@@ -5,6 +5,8 @@ from .views import (
     CommentCreateView, CommentDeleteView,
 )
 
+app_name = 'instagram'
+
 post_urls = [
     path('', PostListView.as_view(), name='post_list'),
     path('post/create/', PostCreateView.as_view(), name='post_create')
