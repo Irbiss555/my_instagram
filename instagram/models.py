@@ -35,3 +35,15 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text[:20]
+
+
+class Like(models.Model):
+    post = models.ForeignKey(
+        to='instagram.Post', on_delete=models.CASCADE,
+        related_name='likes', verbose_name='Лайк'
+    )
+    user = models.ForeignKey(
+        to=get_user_model(), on_delete=models.CASCADE,
+        verbose_name='Пользователь', related_name='likes'
+    )
+    
