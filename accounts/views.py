@@ -12,6 +12,7 @@ from core import settings
 
 class LoginUserView(LoginView):
     redirect_authenticated_user = True
+    template_name = "accounts/registration/login.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -27,7 +28,7 @@ class LoginUserView(LoginView):
 
 class RegisterView(CreateView):
     model = get_user_model()
-    template_name = 'registration/user_create.html'
+    template_name = 'accounts/registration/user_create.html'
     form_class = MyUserCreationForm
 
     def get_context_data(self, **kwargs):
