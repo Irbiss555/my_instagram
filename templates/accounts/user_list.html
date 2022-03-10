@@ -19,8 +19,7 @@
 
         </div>
     {% empty %}
-        <h3>404: {{ 404_error }}</h3>
-        <h3>Issues not found</h3>
+        <p style="text-align: center">Ничего не найдено</p>
     {% endfor %}
     {% if is_paginated %}
         {% include 'partial/common/paginator.html' %}
