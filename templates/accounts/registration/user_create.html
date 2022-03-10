@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1 style="text-align: center">Регистрация</h1>
-    <form action="{% url 'accounts:create' %}?next={{ request.get_full_path }}" method="post"
+    <form action="{% url 'accounts:create' %}" method="post"
           class="text-center account-form" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="mb-3">
