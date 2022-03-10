@@ -9,9 +9,8 @@ class Post(models.Model):
     image = models.ImageField(upload_to='post_pics', null=True, blank=True, verbose_name='Image')
     description = models.TextField(max_length=3000, blank=True, null=True)
     user = models.ForeignKey(
-        to=get_user_model(), on_delete=models.SET_DEFAULT,
-        default=1, verbose_name='Пользователь',
-        related_name='posts'
+        to=get_user_model(), on_delete=models.CASCADE,
+        verbose_name='Пользователь', related_name='posts'
     )
     likes_total = models.IntegerField(
         default=0,
@@ -31,9 +30,8 @@ class Comment(models.Model):
         related_name='comments', verbose_name='Пост'
     )
     user = models.ForeignKey(
-        to=get_user_model(), on_delete=models.SET_DEFAULT,
-        default=1, verbose_name='Пользователь',
-        related_name='comments'
+        to=get_user_model(), on_delete=models.CASCADE,
+        verbose_name='Пользователь', related_name='comments'
     )
     text = models.TextField(
         max_length=400, verbose_name='Комментарий')
