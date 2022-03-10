@@ -1,9 +1,10 @@
+{% load static %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container" style="display: flex; justify-content: space-between">
         <div class="container-fluid" style="width: 33%">
             <a class="navbar-brand" href="#">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png"
-                     alt="" width="200" height="50">
+                <img src="{% static 'images/2560px-Instagram_logo.svg.png' %}"
+                     alt="" class="logo">
             </a>
         </div>
         <div class="container-fluid" style="width: 33%">
@@ -14,18 +15,15 @@
         </div>
         <div style="display: flex; width: 33%">
             <div class="container-fluid">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="#"><i class="fa-solid fa-house fa-xl"></i></a>
             </div>
             <div class="container-fluid">
-                <a class="nav-link" href="#">Create</a>
+                <a class="nav-link" href="#"><i class="fa-regular fa-square-plus fa-xl"></i></a>
             </div>
-            <div class="container-fluid">
-                <a class="nav-link" href="#">Like</a>
-             </div>
-             <div class="container">
+            <div class="container">
                  {% if request.user.is_authenticated %}
                  <div style="display: flex;">
-                    <a class="nav-link" href="#">{{ user.username|default:'Не указан' }}</a>
+                    <a class="nav-link" href="#"><img src="{{ user.profile.avatar.url }}" alt="avatar" style="width: 29px; height: 29px; border-radius: 100%"></a>
                     <a class="nav-link" aria-current="page" href="{% url 'accounts:logout' %}">Выйти</a>
                  </div>
                  {% else %}
