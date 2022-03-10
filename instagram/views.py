@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, DeleteView
 
@@ -16,8 +17,14 @@ class PostCreateView(CreateView):
     model = Post
     form_class = PostForm
 
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.user = self.request.user
+        post.save()
+        return redirect(self.get_success_url())
+
     def get_success_url(self):
-        return reverse('post_list')
+        return reverse('instagram:post_list')
 
 
 class CommentCreateView(CreateView):
