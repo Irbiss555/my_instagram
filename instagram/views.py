@@ -6,13 +6,13 @@ from .models import Post
 
 
 class PostListView(ListView):
-    template_name = 'post_list.html'
+    template_name = 'instagram/post_list.html'
     context_object_name = 'posts'
     model = Post
 
 
 class PostCreateView(CreateView):
-    template_name = 'post_create.html'
+    template_name = 'instagram/post_create.html'
     model = Post
     form_class = PostForm
 
