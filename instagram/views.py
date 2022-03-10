@@ -18,7 +18,6 @@ class PostCreateView(CreateView):
     form_class = PostForm
 
     def form_valid(self, form):
-        print('jhdvbsn')
         post = form.save(commit=False)
         post.user = self.request.user
         post.save()

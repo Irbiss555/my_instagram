@@ -1,59 +1,36 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-<<<<<<< templates/partial/common/menu.html
   <div class="container" style="display: flex; justify-content: space-between">
-      <div class="container-fluid" style="width: 33%">
-            <a class="navbar-brand" href="{% url 'post_list' %}">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png" alt="" width="200" height="50">
-            </a>
-          </div>
-      <div class="container-fluid" style="width: 33%">
-              <form class="d-flex">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
-          </div>
-      <div style="display: flex; width: 33%">
-             <div class="container-fluid">
-                 <a class="nav-link" href="{% url 'post_list' %}">Home</a>
-             </div>
-             <div class="container-fluid">
-                 <a class="nav-link" href="#">Create</a>
-             </div>
-             <div class="container-fluid">
-                 <a class="nav-link" href="#">Like</a>
-    <div class="container" style="display: flex; justify-content: space-between">
-        <div class="container-fluid" style="width: 33%">
-            <a class="navbar-brand" href="#">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png"
-                     alt="" width="200" height="50">
-            </a>
-        </div>
-        <div class="container-fluid" style="width: 33%">
-            <form class="d-flex" action="{% url 'accounts:user_list' %}" method="GET">
-                <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search"
-                       name="{{ search_form.search.name }}" value="{{ search_form.search.value|default_if_none:'' }}">
-            </form>
-        </div>
-        <div style="display: flex; width: 33%">
-            <div class="container-fluid">
-                <a class="nav-link" href="#">Home</a>
-            </div>
-            <div class="container-fluid">
-                <a class="nav-link" href="#">Create</a>
-            </div>
-            <div class="container-fluid">
-                <a class="nav-link" href="#">Like</a>
-             </div>
-             <div class="container">
-                 {% if request.user.is_authenticated %}
-                 <div style="display: flex;">
-                    <a class="nav-link" href="{% url 'accounts:profile' request.user.pk %}">{{ user.username|default:'Не указан' }}</a>
-                    <a class="nav-link" aria-current="page" href="{% url 'accounts:logout' %}">Выйти</a>
-                 </div>
-                 {% else %}
-                     <a class="nav-link" aria-current="page" href="{% url 'accounts:login' %}">Войти</a>
-                 {% endif %}
-             </div>
-          </div>
+      <div class="container-fluid" style="width: 30%">
+          <a class="navbar-brand" href="{% url 'instagram:post_list' %}">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png" alt="" width="200" height="50">
+          </a>
+      </div>
+      <div class="container-fluid" style="width: 30%">
+          <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+      </div>
+      <div class="container-fluid" style="display: flex; width: 40%; justify-content: space-between">
+              <div class="container-fluid">
+                  <a class="nav-link" href="{% url 'instagram:post_list' %}">Home</a>
+              </div>
+              <div class="container-fluid">
+                  <a class="nav-link" href="{% url 'instagram:post_create' %}">Create</a>
+              </div>
+              <div class="container-fluid">
+                  <a class="nav-link" href="#">Like</a>
+              </div>
+              <div class="container-fluid">
+                  {% if request.user.is_authenticated %}
+                      <div style="display: flex;">
+                          <a class="nav-link" href="{% url 'accounts:profile' request.user.pk %}">{{ user.username|default:'Не указан' }}</a>
+                          <a class="nav-link" aria-current="page" href="{% url 'accounts:logout' %}">Выйти</a>
+                      </div>
+                  {% else %}
+                      <a class="nav-link" aria-current="page" href="{% url 'accounts:login' %}">Войти</a>
+                  {% endif %}
+              </div>
+      </div>
   </div>
 </nav>
