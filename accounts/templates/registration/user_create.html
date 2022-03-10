@@ -1,0 +1,48 @@
+{% extends 'accounts_base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1 style="text-align: center">Регистрация</h1>
+    <form action="{% url 'accounts:create' %}?next={{ request.get_full_path }}" method="post"
+          class="text-center account-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="username" class="form-label">Username:</label>
+            <input class="form-control" type="text" name="{{ form.username.name }}" id="username"
+                   value="{{ form.instance.username }}">
+        </div>
+        <div class="mb-3">
+            <label for="first_name" class="form-label">Имя:</label>
+            <input class="form-control" type="text" name="{{ form.first_name.name }}" id="first_name"
+                   value="{{ form.instance.first_name }}">
+        </div>
+        <div class="mb-3">
+            <label for="avatar" class="form-label">Аватар:</label>
+            <input class="form-control" type="file" name="{{ profile_form.avatar.name }}" id="avatar">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Пароль:</label>
+            <input class="form-control" type="password" name="{{ form.password.name }}" id="password">
+        </div>
+        <div class="mb-3">
+            <label for="password_confirm" class="form-label">Повторить пароль:</label>
+            <input class="form-control" type="password" name="{{ form.password_confirm.name }}" id="password_confirm">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input class="form-control" type="email" name="{{ form.email.name }}" id="email"
+                   value="{{ form.instance.email }}">
+        </div>
+        <div class="mb-3">
+            <label for="about" class="form-label">Краткая информация:</label>
+            <textarea name="{{ profile_form.about.name }}" class="form-control" id="about"
+                      rows="7">{{ profile_form.instance.about }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Телефон:</label>
+            <input class="form-control" type="text" name="{{ profile_form.phone.name }}" id="phone"
+                   value="{{ profile_form.instance.phone }}">
+        </div>
+        <button type="submit" class="btn btn-dark">Зарегистрироваться</button>
+    </form>
+{% endblock %}
