@@ -1,0 +1,11 @@
+{% for post in posts %}
+        <div style="display: flex; justify-content: space-between">
+            <div class="card" style="width: 30%; margin: 5px;">
+                <div class="card-header">{{ post.user }}</div>
+                <img class="card-img-top" style="height: 400px;" src="{{ post.image.url }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.description }}</h5>
+                </div>
+            </div>
+        </div>
+{% endfor %}
