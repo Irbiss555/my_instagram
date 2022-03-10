@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div style="display: flex">
+            {% for post in posts %}
+                <div class="card" style="width: 18rem; margin: 20px 0 0 20px">
+                  <img class="card-img-top" src="{{ post.image.url }}">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ post.description }}</h5>
+                  </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

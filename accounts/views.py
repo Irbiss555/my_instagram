@@ -10,10 +10,6 @@ from accounts.forms import MyUserCreationForm, ProfileCreateForm
 from core import settings
 
 
-def index_view(request):
-    return render(request, 'index.html', {'text': 'Hello world'})
-
-
 class LoginUserView(LoginView):
     redirect_authenticated_user = True
 
