@@ -1,25 +1,26 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container" style="display: flex; justify-content: space-between">
-      <div class="container-fluid" style="width: 33%">
+    <div class="container" style="display: flex; justify-content: space-between">
+        <div class="container-fluid" style="width: 33%">
             <a class="navbar-brand" href="#">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png" alt="" width="200" height="50">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2560px-Instagram_logo.svg.png"
+                     alt="" width="200" height="50">
             </a>
-          </div>
-      <div class="container-fluid" style="width: 33%">
-              <form class="d-flex">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
-          </div>
-      <div style="display: flex; width: 33%">
-             <div class="container-fluid">
-                 <a class="nav-link" href="#">Home</a>
-             </div>
-             <div class="container-fluid">
-                 <a class="nav-link" href="#">Create</a>
-             </div>
-             <div class="container-fluid">
-                 <a class="nav-link" href="#">Like</a>
+        </div>
+        <div class="container-fluid" style="width: 33%">
+            <form class="d-flex" action="{% url 'accounts:user_list' %}" method="GET">
+                <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search"
+                       name="{{ search_form.search.name }}" value="{{ search_form.search.value|default_if_none:'' }}">
+            </form>
+        </div>
+        <div style="display: flex; width: 33%">
+            <div class="container-fluid">
+                <a class="nav-link" href="#">Home</a>
+            </div>
+            <div class="container-fluid">
+                <a class="nav-link" href="#">Create</a>
+            </div>
+            <div class="container-fluid">
+                <a class="nav-link" href="#">Like</a>
              </div>
              <div class="container">
                  {% if request.user.is_authenticated %}
