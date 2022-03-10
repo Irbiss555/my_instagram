@@ -52,7 +52,6 @@ class RegisterView(CreateView):
         profile = profile_form.save(commit=False)
         profile.user = user
         profile.save()
-        login(self.request, user)
         return redirect(self.get_success_url())
 
     def form_invalid(self, form, profile_form):
@@ -71,5 +70,5 @@ class RegisterView(CreateView):
         if not next_url:
             next_url = self.request.POST.get('next')
         if not next_url:
-            next_url = reverse('index')
+            next_url = reverse('accounts:login')
         return next_url
