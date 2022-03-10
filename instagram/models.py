@@ -18,3 +18,20 @@ class Post(models.Model):
         blank=True,
         validators=(MinValueValidator(0),)
     )
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(
+        to='instagram.Post', on_delete=models.CASCADE,
+        related_name='comments', verbose_name='Пост'
+    )
+    user = models.ForeignKey(
+        to=get_user_model(), on_delete=models.SET_DEFAULT,
+        default=1, verbose_name='Пользователь',
+        related_name='comments'
+    )
+    text = models.TextField(
+        max_length=400, verbose_name='Комментарий')
+
+    def __str__(self):
+        return self.text[:20]
