@@ -1,6 +1,6 @@
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.views.generic import ListView, CreateView, DeleteView
+from django.views.generic import ListView, CreateView, DeleteView, DetailView
 
 from .forms import PostForm
 from .models import Post
@@ -25,6 +25,13 @@ class PostCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('instagram:post_list')
+
+
+class PostDetailView(DetailView):
+    template_name = 'instagram/post_detail.html'
+    model = Post
+    context_object_name = 'post'
+    pk_url_kwarg = 'pk'
 
 
 class CommentCreateView(CreateView):
