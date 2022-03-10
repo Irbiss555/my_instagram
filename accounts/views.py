@@ -4,7 +4,7 @@ from django.shortcuts import render, resolve_url, redirect
 
 # Create your views here.
 from django.urls import reverse
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 
 from accounts.forms import MyUserCreationForm, ProfileCreateForm
 from core import settings
@@ -72,3 +72,13 @@ class RegisterView(CreateView):
         if not next_url:
             next_url = reverse('accounts:login')
         return next_url
+
+
+class UserListView(ListView):
+    model = get_user_model()
+    template_name = 'accounts/user_list.html'
+    context_object_name = 'user_objects'
+
+    def get_queryset(self):
+        queryset = super().get_queryset().exclude(is_superuser=1)
+        return queryset
