@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="container">
-        <form action="{% url 'post_create' %}" method="post" enctype="multipart/form-data">
+        <form action="{% url 'instagram:post_create' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Upload</button>

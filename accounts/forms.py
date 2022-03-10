@@ -53,3 +53,7 @@ class ProfileCreateForm(forms.ModelForm):
             'phone',
             'gender',
         ]
+
+
+class UserSearchForm(forms.Form):
+    search = forms.CharField(max_length=100, required=False, label="Поиск")

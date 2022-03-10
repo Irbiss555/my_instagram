@@ -1,13 +1,17 @@
+from urllib.parse import urlencode
+
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django.db.models import Q
 from django.shortcuts import render, resolve_url, redirect
 
 # Create your views here.
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, ListView
 
-from accounts.forms import MyUserCreationForm, ProfileCreateForm
+from accounts.forms import MyUserCreationForm, ProfileCreateForm, UserSearchForm
 from core import settings
 
 
@@ -53,7 +57,6 @@ class RegisterView(CreateView):
         profile = profile_form.save(commit=False)
         profile.user = user
         profile.save()
-        login(self.request, user)
         return redirect(self.get_success_url())
 
     def form_invalid(self, form, profile_form):
@@ -72,7 +75,7 @@ class RegisterView(CreateView):
         if not next_url:
             next_url = self.request.POST.get('next')
         if not next_url:
-            next_url = reverse('index')
+            next_url = reverse('accounts:login')
         return next_url
 
 
@@ -80,3 +83,39 @@ class ProfileView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = 'accounts/profile.html'
     context_object_name = 'user_obj'
+
+
+class UserListView(ListView):
+    model = get_user_model()
+    template_name = 'accounts/user_list.html'
+    context_object_name = 'user_objects'
+
+    def get(self, request, *args, **kwargs):
+        self.form = self.get_search_form()
+        self.search_value = self.get_search_value()
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        if self.search_value:
+            context['query'] = urlencode({'search': self.search_value})
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset().exclude(is_superuser=1)
+        if self.search_value:
+            query = (
+                    Q(username__icontains=self.search_value) |
+                    Q(first_name__icontains=self.search_value) |
+                    Q(email__icontains=self.search_value)
+            )
+            queryset = queryset.filter(query)
+        return queryset
+
+    def get_search_form(self):
+        return UserSearchForm(self.request.GET)
+
+    def get_search_value(self):
+        if self.form.is_valid():
+            return self.form.cleaned_data['search']
+        return None
