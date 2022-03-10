@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import (
+from instagram.views import (
     PostListView, PostCreateView,
     CommentCreateView, CommentDeleteView,
 )
