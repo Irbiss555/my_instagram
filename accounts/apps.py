@@ -6,6 +6,5 @@ class AccountsConfig(AppConfig):
     name = 'accounts'
 
     def ready(self):
-        print("at ready")
         import accounts.signals
 
