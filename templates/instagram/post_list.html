@@ -3,13 +3,13 @@
 {% block content %}
     {% for post in posts %}
         <div style="display: flex; justify-content: center">
-            <div class="card" style="width: 80%; margin: auto;">
-                <div class="card-header">{{ post.user }}</div>
+            <div class="card" style="width: 80%; margin: 20px 0px;">
+                <div class="card-header"><span style="font-weight: bold">{{ post.user }}</span></div>
                 <a href="{% url 'instagram:post_detail' post.pk %}">
                     <img class="card-img-top" style="height: 400px;" src="{{ post.image.url }}">
                 </a>
                 <div class="card-body">
-                    <h5 class="card-title">{{ post.description }}</h5>
+                    <h5 class="card-title"><span style="font-weight: bold">{{ post.user }}</span>  {{ post.description }}</h5>
                 </div>
             </div>
         </div>
