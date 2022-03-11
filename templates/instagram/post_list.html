@@ -12,12 +12,10 @@
                     <h5 class="card-title"><span style="font-weight: bold">{{ post.user }}</span>  {{ post.description }}</h5>
                 </div>
                 <div class="card-footer bg-transparent" style="display: flex; justify-content: flex-start; align-items: center">
-                    <p>{{ post.likes_total }}</p>
+                    <a class="fa-solid fa-comment" href="{% url 'instagram:post_detail' post.pk %}">{{ post.comment_total }}</a>
                     <form method="POST" action="{% url 'instagram:like_add' post.pk %}">
-                        {% csrf_token %}<button class="btn" type="submit" value=""><i class="fa-solid fa-heart"></i></button>
+                        {% csrf_token %}<button class="btn" type="submit" value=""><i class="fa-solid fa-heart"></i>{{ post.likes_total }}</button>
                     </form>
-                    <a class="fa-solid fa-comment" href="{% url 'instagram:post_detail' post.pk %}"></a>
-                    <p><i class="fa-solid fa-comment"></i>{{ post.comment_total }}</p>
                 </div>
             </div>
         </div>
