@@ -2,8 +2,8 @@ from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, DeleteView, DetailView
 
-from instagram.forms import PostForm, CommentForm
-from instagram.models import Post, Comment
+from instagram.forms import PostForm, CommentForm, LikeForm
+from instagram.models import Post, Comment, Like
 
 
 class PostListView(ListView):
@@ -58,3 +58,24 @@ class CommentDeleteView(DeleteView):
         comment = get_object_or_404(Comment, pk=self.kwargs.get('pk'))
         post = comment.post
         return reverse('instagram:post_detail', kwargs={'pk': post.pk})
+
+
+class LikeAddView(CreateView):
+    model = Like
+    form_class = LikeForm
+    template_name = 'instagram/post_list.html'
+
+    def form_valid(self, form):
+        form.instance.post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('instagram:post_list')
+
+
+class LikeDeleteView(DeleteView):
+    model = Like
+
+    def get_success_url(self):
+        return reverse('instagram:post_list')

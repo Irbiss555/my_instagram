@@ -2,7 +2,9 @@ from django.urls import path
 
 from instagram.views import (
     PostListView, PostCreateView,
-    CommentCreateView, CommentDeleteView, PostDetailView,
+    CommentCreateView, CommentDeleteView,
+    PostDetailView, LikeAddView,
+    LikeDeleteView,
 )
 
 app_name = 'instagram'
@@ -18,6 +20,11 @@ comment_urls = [
     path('post/comment/<int:pk>/delete', CommentDeleteView.as_view(), name='comment_delete'),
 ]
 
+like_urls = [
+    path('post/<int:pk>/like/add', LikeAddView.as_view(), name='like_add'),
+    path('post//like/<int:pk>/delete', LikeDeleteView.as_view(), name='like_delete'),
+]
 
 urlpatterns = post_urls
 urlpatterns += comment_urls
+urlpatterns += like_urls
