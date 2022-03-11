@@ -11,6 +11,15 @@ class PostListView(ListView):
     context_object_name = 'posts'
     model = Post
 
+    def get_queryset(self):
+        posts = []
+        for post in self.request.user.posts.all():
+            posts.append(post)
+        for user in self.request.user.followers.all():
+            for post in Post.objects.filter(user=user.pk):
+                posts.append(post)
+        return posts
+
 
 class PostCreateView(CreateView):
     template_name = 'instagram/post_create.html'
