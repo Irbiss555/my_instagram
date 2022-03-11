@@ -8,4 +8,3 @@ class InstagramConfig(AppConfig):
     def ready(self):
         print("at ready")
         import instagram.signals
-

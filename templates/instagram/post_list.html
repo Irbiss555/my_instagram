@@ -17,6 +17,7 @@
                         {% csrf_token %}<button class="btn" type="submit" value=""><i class="fa-solid fa-heart"></i></button>
                     </form>
                     <a class="fa-solid fa-comment" href="{% url 'instagram:post_detail' post.pk %}"></a>
+                    <p><i class="fa-solid fa-comment"></i>{{ post.comment_total }}</p>
                 </div>
             </div>
         </div>
