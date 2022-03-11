@@ -1,0 +1,142 @@
+[
+{
+  "model": "accounts.profile",
+  "pk": 18,
+  "fields": {
+    "user": 19,
+    "avatar": "user_pics/dev.png",
+    "about": "",
+    "phone": "",
+    "gender": null,
+    "followers_total": 1,
+    "followings_total": 1,
+    "posts_total": 2
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 19,
+  "fields": {
+    "user": 20,
+    "avatar": "user_pics/manager.png",
+    "about": "",
+    "phone": "",
+    "gender": null,
+    "followers_total": 2,
+    "followings_total": 0,
+    "posts_total": 2
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 20,
+  "fields": {
+    "user": 21,
+    "avatar": "user_pics/lead.png",
+    "about": "",
+    "phone": "",
+    "gender": null,
+    "followers_total": 0,
+    "followings_total": 2,
+    "posts_total": 2
+  }
+},
+{
+  "model": "accounts.userfollowing",
+  "pk": 22,
+  "fields": {
+    "user_id": 21,
+    "following_user_id": 19
+  }
+},
+{
+  "model": "accounts.userfollowing",
+  "pk": 23,
+  "fields": {
+    "user_id": 21,
+    "following_user_id": 20
+  }
+},
+{
+  "model": "accounts.userfollowing",
+  "pk": 24,
+  "fields": {
+    "user_id": 19,
+    "following_user_id": 20
+  }
+},
+{
+  "model": "instagram.post",
+  "pk": 7,
+  "fields": {
+    "image": "post_pics/test.png",
+    "description": "Desription 1",
+    "user": 19,
+    "likes_total": 0,
+    "comment_total": 0
+  }
+},
+{
+  "model": "instagram.post",
+  "pk": 8,
+  "fields": {
+    "image": "post_pics/166494-igra_v_kalmara_squid_game-500x.jpg",
+    "description": "Description 2",
+    "user": 19,
+    "likes_total": 0,
+    "comment_total": 0
+  }
+},
+{
+  "model": "instagram.post",
+  "pk": 9,
+  "fields": {
+    "image": "post_pics/166494-igra_v_kalmara_squid_game-500x_qmeBQW6.jpg",
+    "description": "Desc Aliya",
+    "user": 20,
+    "likes_total": 0,
+    "comment_total": 0
+  }
+},
+{
+  "model": "instagram.post",
+  "pk": 10,
+  "fields": {
+    "image": "post_pics/test_2Ds1jyn.png",
+    "description": "Description 2",
+    "user": 20,
+    "likes_total": 0,
+    "comment_total": 0
+  }
+},
+{
+  "model": "instagram.post",
+  "pk": 11,
+  "fields": {
+    "image": "post_pics/no_image.png",
+    "description": "Description 1",
+    "user": 21,
+    "likes_total": 0,
+    "comment_total": 0
+  }
+},
+{
+  "model": "instagram.post",
+  "pk": 12,
+  "fields": {
+    "image": "post_pics/test_H9CGfes.png",
+    "description": "Description 2",
+    "user": 21,
+    "likes_total": 0,
+    "comment_total": 0
+  }
+},
+{
+  "model": "instagram.like",
+  "pk": 5,
+  "fields": {
+    "post": 6,
+    "user": 17
+  }
+}
+]
