@@ -24,9 +24,9 @@
                     {% endif %}
                 </div>
                 <div style="display: flex; justify-content: space-between; margin: 10px">
-                    <a href="#">публикации</a>
-                    <a href="#">подписчиков</a>
-                    <a href="#">подписки</a>
+                    <a href="#">{{ user_obj.profile.posts_total }} публикаций</a>
+                    <a href="#">{{ user_obj.profile.followers_total }} подписчиков</a>
+                    <a href="#">{{ user_obj.profile.followings_total }} подписок</a>
                 </div>
                 <div style="justify-content: flex-start">
                     <p>{{ user_obj.first_name }}</p>
