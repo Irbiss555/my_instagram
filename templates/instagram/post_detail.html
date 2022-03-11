@@ -5,7 +5,12 @@
         <div class="row g-0">
             <div class="col-md-4">
                 <img src="{{ post.image.url }}" class="img-fluid rounded-start" alt="...">
-                <p><i class="fa-solid fa-comment"></i>{{ post.comment_total }}</p>
+                <div style="display: flex">
+                    <p style="margin: 7px 2px 2px 10px"><i class="fa-solid fa-comment"></i>{{ post.comment_total }}</p>
+                    <form method="POST" action="{% url 'instagram:like_add' post.pk %}">
+                            {% csrf_token %}<button class="btn" type="submit" value=""><i class="fa-solid fa-heart"></i>{{ post.likes_total }}</button>
+                    </form>
+                </div>
             </div>
             <div class="col-md-8">
                 <div class="card-body">
