@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, DeleteView, DetailView
@@ -6,7 +7,7 @@ from instagram.forms import PostForm, CommentForm, LikeForm
 from instagram.models import Post, Comment, Like
 
 
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin, ListView):
     template_name = 'instagram/post_list.html'
     context_object_name = 'posts'
     model = Post
