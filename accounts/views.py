@@ -1,6 +1,6 @@
 from urllib.parse import urlencode
 
-from django.contrib.auth import get_user_model, login
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.db.models import Q
@@ -8,10 +8,11 @@ from django.shortcuts import render, resolve_url, redirect
 
 # Create your views here.
 from django.urls import reverse
-from django.views.generic import CreateView, DetailView
+from django.views.generic import DetailView
 from django.views.generic import CreateView, ListView
 
-from accounts.forms import MyUserCreationForm, ProfileCreateForm, UserSearchForm
+from accounts.forms import MyUserCreationForm, ProfileCreateForm, UserSearchForm, UserFollowingForm
+
 from core import settings
 
 
@@ -83,6 +84,38 @@ class ProfileView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = 'accounts/profile.html'
     context_object_name = 'user_obj'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if 'user_following_form' not in context:
+            context['user_following_form'] = self.get_user_following_form()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_user_following_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        form.save()
+        return redirect(self.get_success_url())
+
+    def form_invalid(self, form):
+        context = self.get_context_data(form=form)
+        return render(self.request, self.template_name, context=context)
+
+    def get_success_url(self):
+        url = reverse('accounts:profile', kwargs={'pk': self.object.pk})
+        return url
+
+    def get_user_following_form(self):
+        form_kwargs = {}
+        if self.request.method == 'POST':
+            form_kwargs['data'] = self.request.POST
+        return UserFollowingForm(**form_kwargs)
 
 
 class UserListView(ListView):
