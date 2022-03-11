@@ -12,23 +12,21 @@
                     <h5 class="card-title"><span style="font-weight: bold">{{ post.user }}</span>  {{ post.description }}</h5>
                 </div>
                 <div class="card-footer bg-transparent" style="display: flex; justify-content: flex-start; align-items: center">
-                    {% for like in request.user.likes.all %}
-                        {% if like.post == post %}
-                            <form method="POST" action="{% url 'instagram:like_delete' like.pk %}">
-                                {% csrf_token %}<button class="btn" type="submit" value=""><i class="fa-solid fa-heart"></i></button>
-                            </form>
-                        {% endif %}
-                    {% empty %}
-                        <form method="POST" action="{% url 'instagram:like_add' post.pk %}">
-                            {% csrf_token %}<button class="btn" type="submit" value=""><i class="fa-regular fa-heart"></i></button>
-                        </form>
-                    {% endfor %}
                     {% for like in post.likes.all %}
-                        {% if like.user != request.user %}
-                            <form method="POST" action="{% url 'instagram:like_add' post.pk %}">
-                                {% csrf_token %}<button class="btn" type="submit" value=""><i class="fa-regular fa-heart"></i></button>
+                            <form method="POST"
+                                    {% if like.user != request.user %}
+                                        action="{% url 'instagram:like_add' like.post.pk %}"
+                                    {% else %}
+                                        action="{% url 'instagram:like_delete' like.pk %}"
+                                    {% endif %}>
+                                {% csrf_token %}<button class="btn" type="submit" value="">
+                                {% if like.user != request.user %}
+                                    <i class="fa-regular fa-heart"></i>
+                                {% else %}
+                                    <i class="fa-solid fa-heart"></i>
+                                {% endif %}
+                                </button>
                             </form>
-                        {% endif %}
                     {% empty %}
                         <form method="POST" action="{% url 'instagram:like_add' post.pk %}">
                                 {% csrf_token %}<button class="btn" type="submit" value=""><i class="fa-regular fa-heart"></i></button>
