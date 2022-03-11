@@ -4,7 +4,6 @@ from instagram.views import (
     PostListView, PostCreateView,
     CommentCreateView, CommentDeleteView,
     PostDetailView, LikeAddView,
-    LikeDeleteView,
 )
 
 app_name = 'instagram'
