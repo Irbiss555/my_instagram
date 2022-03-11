@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-from accounts.models import Profile
+from accounts.models import Profile, UserFollowing
 
 
 class MyUserCreationForm(forms.ModelForm):
@@ -53,6 +53,12 @@ class ProfileCreateForm(forms.ModelForm):
             'phone',
             'gender',
         ]
+
+
+class UserFollowingForm(forms.ModelForm):
+    class Meta:
+        model = UserFollowing
+        fields = ['user_id', 'following_user_id']
 
 
 class UserSearchForm(forms.Form):

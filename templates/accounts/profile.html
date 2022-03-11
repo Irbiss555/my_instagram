@@ -9,7 +9,19 @@
             <div style="width: 70%">
                 <div style="display: flex; justify-content: flex-start">
                     <h3 style="margin-right: 50px;">{{ user_obj.username }}</h3>
-                     <a class="btn btn-outline-secondary" href="#">Редактировать</a>
+
+                    {% if request.user != user_obj %}
+                        <form action="{% url 'accounts:profile' user_obj.pk %}" method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <input type="hidden" name="{{ user_following_form.user_id.name }}"  value="{{ request.user.id }}">
+                            <input type="hidden" name="{{ user_following_form.following_user_id.name }}" value="{{ user_obj.id }}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Подписаться</button>
+                    </form>
+                    {% else %}
+                        <a class="btn btn-outline-secondary" href="#">Редактировать</a>
+                    {% endif %}
                 </div>
                 <div style="display: flex; justify-content: space-between; margin: 10px">
                     <a href="#">публикации</a>

@@ -14,6 +14,12 @@
 <body>
     {% include 'partial/common/menu.html' %}
     <div class="container">
+    {% if form.errors or profile_form.errors %}
+        <div class="alert alert-danger" role="alert">
+            <p>{{ form.errors }}</p>
+            <p>{{ profile_form.errors }}</p>
+        </div>
+        {% endif %}
         {% block content %}
         {% endblock %}
     </div>
