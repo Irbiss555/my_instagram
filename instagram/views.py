@@ -73,9 +73,3 @@ class LikeAddView(CreateView):
     def get_success_url(self):
         return reverse('instagram:post_list')
 
-
-class LikeDeleteView(DeleteView):
-    model = Like
-
-    def get_success_url(self):
-        return reverse('instagram:post_list')

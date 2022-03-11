@@ -22,7 +22,6 @@ comment_urls = [
 
 like_urls = [
     path('post/<int:pk>/like/add', LikeAddView.as_view(), name='like_add'),
-    path('post//like/<int:pk>/delete', LikeDeleteView.as_view(), name='like_delete'),
 ]
 
 urlpatterns = post_urls
