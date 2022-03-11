@@ -49,3 +49,6 @@ class Like(models.Model):
         to=get_user_model(), on_delete=models.CASCADE,
         verbose_name='Пользователь', related_name='likes'
     )
+
+    class Meta:
+        unique_together = ['user', 'post']
