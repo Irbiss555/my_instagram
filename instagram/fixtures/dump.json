@@ -130,13 +130,5 @@
     "likes_total": 0,
     "comment_total": 0
   }
-},
-{
-  "model": "instagram.like",
-  "pk": 5,
-  "fields": {
-    "post": 6,
-    "user": 17
-  }
 }
 ]
