@@ -1,0 +1,7 @@
+{% for comment in comments %}
+    <div style="display: flex; justify-content: space-between">
+        <p><span style="font-weight: bold">{{ comment.user }} </span>
+            {{ comment.text }}</p>
+        <small class="text-muted">{{ comment.created_at }}</small>
+    </div>
+{% endfor %}
