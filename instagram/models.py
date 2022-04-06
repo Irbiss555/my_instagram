@@ -35,6 +35,7 @@ class Comment(models.Model):
     )
     text = models.TextField(
         max_length=400, verbose_name='Комментарий')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created')
 
     def __str__(self):
         return self.text[:20]
