@@ -23,3 +23,10 @@ def add_user_post(sender, instance, created, **kwargs):
         user = get_user_model().objects.get(pk=instance.user.id)
         user.profile.posts_total += 1
         user.profile.save()
+
+
+@receiver(signal=post_delete, sender=Post)
+def add_user_post(sender, instance, created, **kwargs):
+    user = get_user_model().objects.get(pk=instance.user.id)
+    user.profile.posts_total -= 1
+    user.profile.save()
