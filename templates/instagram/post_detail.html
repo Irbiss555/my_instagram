@@ -1,29 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="card mb-3" style="width: 80%; margin: auto">
+    <div class="card mb-3" style="margin: 0 -100px 0 -100px">
         <div class="row g-0">
             <div class="col-md-4">
-                <img src="{{ post.image.url }}" class="img-fluid rounded-start" alt="...">
-                <div style="display: flex">
-                    <p style="margin: 7px 2px 2px 10px"><i class="fa-solid fa-comment"></i>{{ post.comment_total }}</p>
-                    <form method="POST" action="{% url 'instagram:like_add' post.pk %}">
-                            {% csrf_token %}<button class="btn" type="submit" value=""><i class="fa-solid fa-heart"></i>{{ post.likes_total }}</button>
-                    </form>
+                <div class="image">
+                    <img src="{{ post.image.url }}" class="card-img-top" alt="...">
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 d-flex flex-column">
+                <div class="card-header d-flex justify-content-between">
+                    <p class="card-text"><span
+                            class="username-text">{{ post.user.username }}</span> {{ post.description }}</p>
+                     <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-target="#deletePostModal"></button>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{ post.user }}</h5>
-                    <p class="card-text"><span style="font-weight: bold">{{ post.user }}  </span>{{ post.description }}</p>
-                    {% include 'partial/comment/comment_list.html' with comments=post.comments.all %}
-                    <div style="position: absolute; bottom: 0; margin: auto;">
-                        <form action="{% url 'instagram:comment_create' post.pk %}" method="POST" style="display: flex;">
-                            {% include 'partial/comment/comment_form.html' %}
-                        </form>
+                    <div class="scrollspy-example">
+                        {% if post.comment_total %}
+                            {% include 'partial/instagram/comment/comment_list.html' with comments=post.comments.all %}
+                        {% else %}
+                            <small class="text-muted">View all {{ post.comment_total }} comments</small>
+                        {% endif %}
                     </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn" type="submit" value="" form="form-{{ post.pk }}" style="padding: 0"><i
+                            class="fa-solid fa-heart fa-xl"></i></button>
+                    <form method="POST" action="{% url 'instagram:like_add' post.pk %}" id="form-{{ post.pk }}">
+                        {% csrf_token %}
+                    </form>
+                    <p class="card-text"><span
+                            class="username-text">{{ post.likes_total }} users like post</span></p>
+                    <p>Add comment</p>
                 </div>
             </div>
         </div>
     </div>
+    {% include 'partial/instagram/post/post_delete.html' %}
 {% endblock %}

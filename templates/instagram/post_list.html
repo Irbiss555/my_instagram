@@ -2,8 +2,7 @@
 
 {% block content %}
     {% for post in posts %}
-        <div>
-            <div class="card mb-3">
+            <div class="card mb-3 post">
                 <div class="card-header">
                     <div class="image">
                         <img src="{{ post.image.url }}" class="card-img-top" alt="...">
@@ -22,13 +21,15 @@
                             class="username-text">{{ post.user.username }}</span> {{ post.description }}</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">{% for comment in post.comments|slice:':2'|dictsort:'text' %}
-                        {{ comment }}
-                        {% empty %}
-                         <p class="card-text">No comments</p>
-                    {% endfor %}</small>
+                {% if post.comment_total %}
+                            {% include 'partial/instagram/comment/comment_list.html' with comments=post.comments.all|dictsortreversed:'created_at'|slice:':2' %}
+                    {% if post.comment_total > 2 %}
+                        <a href="{% url 'instagram:post_detail' post.pk %}"><small class="text-muted">View all {{ post.comment_total }} comments</small></a>
+                    {% endif %}
+                        {% else %}
+                            <small class="text-muted">No comments</small>
+                        {% endif %}
                 </div>
             </div>
-        </div>
     {% endfor %}
 {% endblock %}
