@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView, DetailView
 
 from instagram.forms import PostForm, CommentForm, LikeForm
@@ -44,6 +44,14 @@ class PostDetailView(DetailView):
     pk_url_kwarg = 'pk'
 
 
+class PostDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'instagram/post_detail.html'
+    model = Post
+
+    def get_success_url(self):
+        return reverse_lazy('accounts:profile', kwargs={'pk': self.object.user.pk})
+
+
 class CommentCreateView(CreateView):
     model = Comment
     form_class = CommentForm
@@ -82,4 +90,3 @@ class LikeAddView(CreateView):
 
     def get_success_url(self):
         return reverse('instagram:post_list')
-
