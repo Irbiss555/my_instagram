@@ -2,20 +2,31 @@
 
 {% block content %}
     {% for post in posts %}
-        <div style="display: flex; justify-content: center">
-            <div class="card" style="width: 80%; margin: 20px 0px;">
-                <div class="card-header"><span style="font-weight: bold">{{ post.user }}</span></div>
-                <a href="{% url 'instagram:post_detail' post.pk %}">
-                    <img class="card-img-top" style="height: 400px;" src="{{ post.image.url }}">
-                </a>
-                <div class="card-body">
-                    <h5 class="card-title"><span style="font-weight: bold">{{ post.user }}</span>  {{ post.description }}</h5>
+        <div>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <div class="image">
+                        <img src="{{ post.image.url }}" class="card-img-top" alt="...">
+                    </div>
                 </div>
-                <div class="card-footer bg-transparent" style="display: flex; justify-content: flex-start; align-items: center">
-                    <a class="fa-solid fa-comment" href="{% url 'instagram:post_detail' post.pk %}">{{ post.comment_total }}</a>
-                    <form method="POST" action="{% url 'instagram:like_add' post.pk %}">
-                        {% csrf_token %}<button class="btn" type="submit" value=""><i class="fa-solid fa-heart"></i>{{ post.likes_total }}</button>
+                <div class="card-body">
+                    <button class="btn" type="submit" value="" form="form-{{ post.pk }}" style="padding: 0"><i
+                            class="fa-solid fa-heart fa-xl"></i></button>
+                    <a href="{% url 'instagram:post_detail' post.pk %}"><i class="fa-regular fa-comment fa-xl"></i></a>
+                    <form method="POST" action="{% url 'instagram:like_add' post.pk %}" id="form-{{ post.pk }}">
+                        {% csrf_token %}
                     </form>
+                    <p class="card-text"><span
+                            class="username-text">{{ post.likes_total }} users like post</span></p>
+                    <p class="card-text"><span
+                            class="username-text">{{ post.user.username }}</span> {{ post.description }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{% for comment in post.comments|slice:':2'|dictsort:'text' %}
+                        {{ comment }}
+                        {% empty %}
+                         <p class="card-text">No comments</p>
+                    {% endfor %}</small>
                 </div>
             </div>
         </div>
