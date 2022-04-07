@@ -1,6 +1,21 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator
 from django.db import models
+
+
+class User(AbstractUser):
+    followings = models.ManyToManyField(
+        to='self',
+        related_name='followers',
+        through='accounts.UserFollowing',
+        symmetrical=False,
+        blank=True
+    )
+
+    class Meta:
+        verbose_name = 'user'
+        verbose_name_plural = 'users'
 
 
 class Profile(models.Model):
@@ -53,8 +68,11 @@ class Gender(models.Model):
 
 
 class UserFollowing(models.Model):
-    user_id = models.ForeignKey(get_user_model(), related_name='following', on_delete=models.CASCADE)
-    following_user_id = models.ForeignKey(get_user_model(), related_name='followers', on_delete=models.CASCADE)
+    user_id = models.ForeignKey(get_user_model(), related_name='user_following', on_delete=models.CASCADE)
+    following_user_id = models.ForeignKey(get_user_model(), related_name='user_followers', on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ('user_id', 'following_user_id')
+
+    def __str__(self):
+        return f'User ID={self.user_id} followed to user ID={self.following_user_id}'
