@@ -1,19 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container">
         <form action="{% url 'instagram:post_create' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="image" class="form-label">Фото:</label>
+                <label for="image" class="form-label">Image:</label>
                 <input class="form-control" type="file" name="image" id="image">
             </div>
             <div class="mb-3">
-                <label for="description" class="form-label">Описание:</label>
+                <label for="description" class="form-label">Description:</label>
                 <textarea name="description" class="form-control" id="description"
                       rows="7">{{ form.description.about }}</textarea>
             </div>
-            <button class="btn btn-success" type="submit">Опубликовать</button>
+            <button class="btn btn-dark" type="submit">Add</button>
         </form>
-    </div>
 {% endblock %}
