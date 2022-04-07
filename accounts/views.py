@@ -4,14 +4,17 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.db.models import Q
+from django.http import HttpResponseNotFound
 from django.shortcuts import render, resolve_url, redirect
 
 # Create your views here.
 from django.urls import reverse
+from django.views import View
 from django.views.generic import DetailView
 from django.views.generic import CreateView, ListView
 
 from accounts.forms import MyUserCreationForm, ProfileCreateForm, UserSearchForm, UserFollowingForm
+from accounts.models import UserFollowing
 
 from core import settings
 
@@ -116,6 +119,19 @@ class ProfileView(LoginRequiredMixin, DetailView):
         if self.request.method == 'POST':
             form_kwargs['data'] = self.request.POST
         return UserFollowingForm(**form_kwargs)
+
+
+class UserUnfollowView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        following_user = get_user_model().objects.get(pk=self.kwargs.get('pk'))
+        user_following_object = UserFollowing.objects.filter(
+            user_id=self.request.user.pk,
+            following_user_id=following_user.pk
+        ).first()
+        if user_following_object:
+            user_following_object.delete()
+            return redirect('accounts:profile', pk=following_user.pk)
+        return HttpResponseNotFound
 
 
 class UserListView(ListView):

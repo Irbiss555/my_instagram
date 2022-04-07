@@ -12,7 +12,8 @@
                 <h3 style="margin-right: 50px;">{{ user_obj.username }}</h3>
 
                 {% if request.user != user_obj %}
-                    <form action="{% url 'accounts:profile' user_obj.pk %}" method="post">
+                    {% if user_obj not in request.user.followings.all %}
+                        <form action="{% url 'accounts:profile' user_obj.pk %}" method="post">
                         {% csrf_token %}
                             <input type="hidden" name="{{ user_following_form.user_id.name }}"
                                    value="{{ request.user.id }}">
@@ -20,6 +21,16 @@
                                    value="{{ user_obj.id }}">
                         <button type="submit" class="btn btn-outline-dark" style="line-height: 13px;">Follow</button>
                     </form>
+                        {% else %}
+                        <form action="{% url 'accounts:user_unfollow' user_obj.pk %}" method="post">
+                        {% csrf_token %}
+                            <input type="hidden" name="{{ user_following_form.user_id.name }}"
+                                   value="{{ request.user.id }}">
+                            <input type="hidden" name="{{ user_following_form.following_user_id.name }}"
+                                   value="{{ user_obj.id }}">
+                        <button type="submit" class="btn btn-outline-dark" style="line-height: 13px;">Unfollow</button>
+                    </form>
+                    {% endif %}
                 {% endif %}
             </div>
             <div style="display: flex; justify-content: space-between">
