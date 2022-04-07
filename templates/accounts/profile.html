@@ -1,41 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div style="width: 80%; margin: auto">
-        <div style="display: flex; border-bottom: solid 2px lightgray; margin-top: 50px; padding-bottom: 20px">
-            <div style="width: 30%; display: flex; justify-content: center;">
-                <img width="200px" height="200px" src="{{ user_obj.profile.avatar.url }}">
+    <div class="row profile-block">
+        <div class="col-3">
+            <div class="image" style="height: 125px; border-radius:100%">
+                <img src="{{ user_obj.profile.avatar.url }}" class="card-img-top" alt="...">
             </div>
-            <div style="width: 70%">
-                <div style="display: flex; justify-content: flex-start">
-                    <h3 style="margin-right: 50px;">{{ user_obj.username }}</h3>
+        </div>
+        <div class="col-8">
+            <div style="display: flex; justify-content: flex-start">
+                <h3 style="margin-right: 50px;">{{ user_obj.username }}</h3>
 
-                    {% if request.user != user_obj %}
-                        <form action="{% url 'accounts:profile' user_obj.pk %}" method="post">
+                {% if request.user != user_obj %}
+                    <form action="{% url 'accounts:profile' user_obj.pk %}" method="post">
                         {% csrf_token %}
                         <div class="mb-3">
-                            <input type="hidden" name="{{ user_following_form.user_id.name }}"  value="{{ request.user.id }}">
-                            <input type="hidden" name="{{ user_following_form.following_user_id.name }}" value="{{ user_obj.id }}">
+                            <input type="hidden" name="{{ user_following_form.user_id.name }}"
+                                   value="{{ request.user.id }}">
+                            <input type="hidden" name="{{ user_following_form.following_user_id.name }}"
+                                   value="{{ user_obj.id }}">
                         </div>
-                        <button type="submit" class="btn btn-primary">Подписаться</button>
+                        <button type="submit" class="btn btn-primary">Follow</button>
                     </form>
-                    {% else %}
-                        <a class="btn btn-outline-secondary" href="#">Редактировать</a>
-                    {% endif %}
-                </div>
-                <div style="display: flex; justify-content: space-between; margin: 10px">
-                    <a href="#">{{ user_obj.profile.posts_total }} публикаций</a>
-                    <a href="#">{{ user_obj.profile.followers_total }} подписчиков</a>
-                    <a href="#">{{ user_obj.profile.followings_total }} подписок</a>
-                </div>
-                <div style="justify-content: flex-start">
-                    <p>{{ user_obj.first_name }}</p>
-                    <p>{{ user_obj.about }}</p>
-                </div>
+                {% endif %}
+            </div>
+            <div style="display: flex; justify-content: space-between">
+                <a href="#">{{ user_obj.profile.posts_total }} posts</a>
+                <a href="#">{{ user_obj.profile.followers_total }} followers</a>
+                <a href="#">{{ user_obj.profile.followings_total }} followings</a>
+            </div>
+            <div style="justify-content: flex-start">
+                <p>{{ user_obj.first_name }}</p>
+                <p>{{ user_obj.about }}</p>
             </div>
         </div>
-        <div style="margin-top: 10px">
-            {% include 'partial/instagram/post/post_list.html' with posts=user_obj.posts.all %}
-        </div>
+    </div>
+    <div class="row">
+        {% include 'partial/instagram/post/post_list.html' with posts=user_obj.posts.all %}
     </div>
 {% endblock %}

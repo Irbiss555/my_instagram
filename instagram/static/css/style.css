@@ -30,6 +30,7 @@ a {
     object-fit: cover;
     height: 100%;
     width: 100%;
+    border-radius: 0;
 }
 .fa-comment{
   transform: scaleX(-1);
@@ -50,4 +51,12 @@ a {
 
 .card {
     border-radius: 0;
+    padding: 0;
+}
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+.profile-block {
+    margin-bottom: 50px;
 }
