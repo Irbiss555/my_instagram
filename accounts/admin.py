@@ -15,7 +15,6 @@ class ProfileAdmin(UserAdmin):
 
 
 User = get_user_model()
-admin.site.unregister(User)
 admin.site.register(User, ProfileAdmin)
 admin.site.register(Gender)
 admin.site.register(UserFollowing)
