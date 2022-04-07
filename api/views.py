@@ -16,7 +16,6 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.request.method in SAFE_METHODS:
-            print(1)
             return []
         elif self.request.method == 'POST':
             return [IsAuthenticated()]
@@ -28,6 +27,12 @@ class PostViewSet(viewsets.ModelViewSet):
 class LikeViewSet(viewsets.ModelViewSet):
     queryset = Like.objects.all()
     serializer_class = LikeSerializer
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    def get_permissions(self):
+        if self.request.method in SAFE_METHODS:
+            return []
+        return super().get_permissions()
