@@ -17,6 +17,16 @@ def add_user_following(sender, instance, created, **kwargs):
         user2.profile.save()
 
 
+@receiver(signal=post_delete, sender=UserFollowing)
+def delete_user_following(sender, instance, **kwargs):
+    user1 = get_user_model().objects.get(pk=instance.user_id.id)
+    user2 = get_user_model().objects.get(pk=instance.following_user_id.id)
+    user1.profile.followings_total -= 1
+    user2.profile.followers_total -= 1
+    user1.profile.save()
+    user2.profile.save()
+
+
 @receiver(signal=post_save, sender=Post)
 def add_user_post(sender, instance, created, **kwargs):
     if created:
