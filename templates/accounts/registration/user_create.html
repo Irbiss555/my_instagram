@@ -1,7 +1,7 @@
 {% extends 'accounts/accounts_base.html' %}
 
 {% block content %}
-    <h1 style="text-align: center">Регистрация</h1>
+    <h1 style="text-align: center">Sign up</h1>
     <form action="{% url 'accounts:create' %}" method="post"
           class="text-center account-form" enctype="multipart/form-data">
         {% csrf_token %}
@@ -16,15 +16,15 @@
                    value="{{ form.instance.first_name }}">
         </div>
         <div class="mb-3">
-            <label for="avatar" class="form-label">Аватар:</label>
+            <label for="avatar" class="form-label">Avatar:</label>
             <input class="form-control" type="file" name="{{ profile_form.avatar.name }}" id="avatar">
         </div>
         <div class="mb-3">
-            <label for="password" class="form-label">Пароль:</label>
+            <label for="password" class="form-label">Password:</label>
             <input class="form-control" type="password" name="{{ form.password.name }}" id="password">
         </div>
         <div class="mb-3">
-            <label for="password_confirm" class="form-label">Повторить пароль:</label>
+            <label for="password_confirm" class="form-label">Confirm password:</label>
             <input class="form-control" type="password" name="{{ form.password_confirm.name }}" id="password_confirm">
         </div>
         <div class="mb-3">
@@ -33,15 +33,15 @@
                    value="{{ form.instance.email }}">
         </div>
         <div class="mb-3">
-            <label for="about" class="form-label">Краткая информация:</label>
+            <label for="about" class="form-label">About info:</label>
             <textarea name="{{ profile_form.about.name }}" class="form-control" id="about"
                       rows="7">{{ profile_form.instance.about }}</textarea>
         </div>
         <div class="mb-3">
-            <label for="phone" class="form-label">Телефон:</label>
+            <label for="phone" class="form-label">Phone:</label>
             <input class="form-control" type="text" name="{{ profile_form.phone.name }}" id="phone"
                    value="{{ profile_form.instance.phone }}">
         </div>
-        <button type="submit" class="btn btn-dark">Зарегистрироваться</button>
+        <button type="submit" class="btn btn-dark">Sign up</button>
     </form>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'accounts/accounts_base.html' %}
 
 {% block content %}
-<h1>Войти</h1>
+<h1>Sign in</h1>
     <form action="{% url 'accounts:login' %}?next={{ request.get_full_path }}" method="post"
           class="text-center account-form">
         {% csrf_token %}
@@ -16,8 +16,8 @@
             <label for="password" class="form-label">Password:</label>
             <input class="form-control" type="password" name="password" id="password">
         </div>
-        <button type="submit" class="btn btn-dark">Войти</button>
-        <span>У вас еще нет аккаунта?</span>
-        <a href="{% url 'accounts:create' %}">Зарегистрироваться</a>
+        <button type="submit" class="btn btn-dark">Sign in</button>
+        <span>You don't have an account?</span>
+        <a href="{% url 'accounts:create' %}" style="color: blue">Sign up</a>
     </form>
 {% endblock %}
