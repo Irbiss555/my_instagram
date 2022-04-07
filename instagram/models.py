@@ -12,6 +12,13 @@ class Post(models.Model):
         to=get_user_model(), on_delete=models.CASCADE,
         verbose_name='Пользователь', related_name='posts'
     )
+    liked_users = models.ManyToManyField(
+        to=get_user_model(),
+        related_name='liked_posts',
+        through='instagram.Like',
+        through_fields=('post', 'user'),
+        blank=True
+    )
     likes_total = models.IntegerField(
         default=0,
         blank=True,
@@ -47,12 +54,15 @@ class Comment(models.Model):
 class Like(models.Model):
     post = models.ForeignKey(
         to='instagram.Post', on_delete=models.CASCADE,
-        related_name='likes', verbose_name='Лайк'
+        related_name='post_likes', verbose_name='Пост'
     )
     user = models.ForeignKey(
         to=get_user_model(), on_delete=models.CASCADE,
-        verbose_name='Пользователь', related_name='likes'
+        verbose_name='Пользователь', related_name='user_likes'
     )
 
     class Meta:
         unique_together = ['user', 'post']
+
+    def __str__(self):
+        return f'{self.user} likes post "{self.post}"'
