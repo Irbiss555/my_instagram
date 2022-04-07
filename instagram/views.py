@@ -13,12 +13,9 @@ class PostListView(LoginRequiredMixin, ListView):
     model = Post
 
     def get_queryset(self):
-        posts = []
-        for post in self.request.user.posts.all():
-            posts.append(post)
-        for user in self.request.user.followers.all():
-            for post in Post.objects.filter(user=user.pk):
-                posts.append(post)
+        posts = self.request.user.posts.all()
+        for following in self.request.user.followings.all():
+            posts = posts | following.posts.all()
         return posts
 
 
