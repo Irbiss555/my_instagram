@@ -8,19 +8,17 @@
             </div>
         </div>
         <div class="col-8">
-            <div style="display: flex; justify-content: flex-start">
+            <div style="display: flex; justify-content: space-between; align-items: center">
                 <h3 style="margin-right: 50px;">{{ user_obj.username }}</h3>
 
                 {% if request.user != user_obj %}
                     <form action="{% url 'accounts:profile' user_obj.pk %}" method="post">
                         {% csrf_token %}
-                        <div class="mb-3">
                             <input type="hidden" name="{{ user_following_form.user_id.name }}"
                                    value="{{ request.user.id }}">
                             <input type="hidden" name="{{ user_following_form.following_user_id.name }}"
                                    value="{{ user_obj.id }}">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Follow</button>
+                        <button type="submit" class="btn btn-outline-dark" style="line-height: 13px;">Follow</button>
                     </form>
                 {% endif %}
             </div>
