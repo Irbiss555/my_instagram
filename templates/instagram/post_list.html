@@ -9,10 +9,15 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <button class="btn" type="submit" value="" form="form-{{ post.pk }}" style="padding: 0"><i
-                            class="fa-solid fa-heart fa-xl"></i></button>
+                    <button class="btn" type="submit" value="" form="form-{{ post.pk }}" style="padding: 0">
+                        {% if user in post.liked_users.all %}
+                        <i class="fa-solid fa-heart fa-xl"></i>
+                            {% else %}
+                            <i class="fa-regular fa-heart fa-xl"></i>
+                        {% endif %}
+                    </button>
                     <a href="{% url 'instagram:post_detail' post.pk %}"><i class="fa-regular fa-comment fa-xl"></i></a>
-                    <form method="POST" action="{% url 'instagram:like_add' post.pk %}" id="form-{{ post.pk }}">
+                    <form method="POST" action="{% url 'api:likes_api' post.pk %}" id="form-{{ post.pk }}">
                         {% csrf_token %}
                     </form>
                     <p class="card-text"><span
