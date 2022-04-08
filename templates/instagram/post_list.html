@@ -9,7 +9,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <button class="btn" type="submit" value="" form="form-{{ post.pk }}" style="padding: 0">
+                    <button class="btn btn-like" type="submit" data-id="{{ post.pk }}" value="" form="form-{{ post.pk }}" style="padding: 0">
                         {% if user in post.liked_users.all %}
                         <i class="fa-solid fa-heart fa-xl"></i>
                             {% else %}
@@ -21,7 +21,7 @@
                         {% csrf_token %}
                     </form>
                     <p class="card-text"><span
-                            class="username-text">{{ post.likes_total }} users like post</span></p>
+                            class="username-text" id="like-txt-{{ post.pk }}">{{ post.likes_total }} users like post</span></p>
                     <p class="card-text"><span
                             class="username-text">{{ post.user.username }}</span> {{ post.description }}</p>
                 </div>
