@@ -12,6 +12,7 @@ app_name = 'api'
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('post/<int:post_pk>/likes/', views.LikeAPIView.as_view(), name='likes_api'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('login/', obtain_auth_token, name='api_token_auth')
 ]
