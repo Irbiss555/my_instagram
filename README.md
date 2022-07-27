@@ -1,4 +1,6 @@
-# my_instagram
+## Info
+This project is simple version of Instagram with authentication, followings and likes.
+
 ## How to run the project
 1. Install Python and project dependencies
 
@@ -39,3 +41,4 @@ unzip uploads.zip
 ```
 python manage.py runserver
 ```
+Server will be available at http://127.0.0.1:8000/
